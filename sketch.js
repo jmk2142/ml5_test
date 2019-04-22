@@ -17,7 +17,6 @@ function setup() {
   startBtn = select('#start');
 
 
-
   // DOM element events
   startBtn.mousePressed(generate);
 }
@@ -36,7 +35,7 @@ function resetModel() {
   charRNN.reset();
   const seed = select('#textInput').value();
   charRNN.feed(seed);
-  select('#result').html(seed);
+  // select('#result').html(seed);
 }
 
 function generate() {
@@ -65,7 +64,7 @@ async function predict() {
     console.log(period);
   }
 
-  if(period>4){
+  if(period>2){
     generating = false;
     startBtn.html('Start');
     period = 0;
