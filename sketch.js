@@ -6,6 +6,8 @@ let generating = false;
 
 let canvasHeight = 100;
 
+let period = 0;
+
 function setup() {
   noCanvas();
   // Create the LSTM Generator passing it the model directory
@@ -38,15 +40,10 @@ function resetModel() {
 }
 
 function generate() {
-  if (generating) {
-    generating = false;
-    startBtn.html('Start');
-  } else {
     resetModel();
     generating = true;
     startBtn.html('Pause');
     loopRNN();
-  }
 }
 
 async function loopRNN() {
@@ -62,4 +59,15 @@ async function predict() {
   let next = await charRNN.predict(temperature);
   await charRNN.feed(next.sample);
   par.html(par.html() + next.sample);
+
+  if(next.sample=="."){
+    period++;
+    console.log(period);
+  }
+
+  if(period>4){
+    generating = false;
+    startBtn.html('Start');
+    period = 0;
+  }
 }
