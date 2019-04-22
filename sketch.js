@@ -4,12 +4,12 @@ let startBtn;
 let generating = false;
 // let canvasHeight = 100;
 let period = 0;
+let seed = "tell me about you.";
 
 // speech setup
 var myRec = new p5.SpeechRec(); // new P5.SpeechRec object
 myRec.continuous = true; // do continuous recognition
-myRec.interimResults = true; // allow partial recognition (faster, less accurate)
-
+myRec.interimResults = false; // allow partial recognition (faster, less accurate)
 
 
 function setup() {
@@ -38,7 +38,8 @@ function showResult() {
   if (myRec.resultValue == true) {
     background(192, 255, 192);
     text(myRec.resultString, width / 2, height / 2);
-    //console.log(myRec.resultString);
+    console.log("resultingString", myRec.resultString);
+    updateSeed();
   }
 }
 
@@ -46,6 +47,11 @@ function windowResized() {
   resizeCanvas(windowWidth, canvasHeight);
 }
 
+function updateSeed(){
+  seed = myRec.resultString;
+  // console.log("seed", seed);
+  generate();
+}
 
 async function modelReady() {
   // select('#status').html('Model Loaded');
@@ -55,7 +61,7 @@ async function modelReady() {
 function resetModel() {
   charRNN.reset();
   // const seed = select('#textInput').value();
-  const seed = "tell me about yourself";
+  // const seed = "tell me about yourself";
   charRNN.feed(seed);
   // select('#result').html(seed);
   select('#result').html("");
