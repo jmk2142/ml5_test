@@ -1,19 +1,16 @@
 let charRNN;
-let textInput;
-
 let startBtn;
 let generating = false;
-
 let canvasHeight = 100;
-
 let period = 0;
+
+
+
 
 function setup() {
   noCanvas();
   // Create the LSTM Generator passing it the model directory
   charRNN = ml5.charRNN('./models/woolf/', modelReady);
-  // Grab the DOM elements
-  textInput = select('#textInput');
   startBtn = select('#start');
 
 
