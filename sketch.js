@@ -33,9 +33,11 @@ async function modelReady() {
 
 function resetModel() {
   charRNN.reset();
-  const seed = select('#textInput').value();
+  // const seed = select('#textInput').value();
+  const seed = "tell me about yourself";
   charRNN.feed(seed);
   // select('#result').html(seed);
+  select('#result').html("");
 }
 
 function generate() {
@@ -64,7 +66,7 @@ async function predict() {
     console.log(period);
   }
 
-  if(period>2){
+  if(period>1){
     generating = false;
     startBtn.html('Start');
     period = 0;
