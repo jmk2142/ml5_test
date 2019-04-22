@@ -21,15 +21,15 @@ function setup() {
   // startBtn.mousePressed(generate);
 
   //speech setup
-  var canvas = createCanvas(800, 400);
+  var canvas = createCanvas(windowWidth, 200);
   canvas.parent("canvasContainer");
   background(255, 255, 255);
   fill(0, 0, 0, 255);
   fill(0, 0, 0, 255);
   // instructions:
-  textSize(32);
-  textAlign(CENTER);
-  text("say something", width / 2, height / 2);
+  // textSize(12);
+  // textAlign(CENTER);
+  text("say something", 30, 30);
   myRec.onResult = showResult;
   myRec.start();
 }
@@ -38,8 +38,8 @@ function setup() {
 function showResult() {
   if (myRec.resultValue == true) {
     background(192, 255, 192);
-    text(myRec.resultString, width / 2, height / 2);
-    console.log("resultingString", myRec.resultString);
+    text(myRec.resultString, 30, 30);
+    // console.log("resultingString", myRec.resultString);
     updateSeed();
   }
 }
