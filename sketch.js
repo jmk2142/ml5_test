@@ -16,12 +16,13 @@ function setup() {
   // noCanvas();
   // Create the LSTM Generator passing it the model directory
   charRNN = ml5.charRNN('./models/woolf/', modelReady);
-  startBtn = select('#start');
-  // DOM element events
-  startBtn.mousePressed(generate);
+  // startBtn = select('#start');
+  // // DOM element events
+  // startBtn.mousePressed(generate);
 
   //speech setup
-  createCanvas(800, 400);
+  var canvas = createCanvas(800, 400);
+  canvas.parent("canvasContainer");
   background(255, 255, 255);
   fill(0, 0, 0, 255);
   fill(0, 0, 0, 255);
@@ -70,7 +71,7 @@ function resetModel() {
 function generate() {
     resetModel();
     generating = true;
-    startBtn.html('Pause');
+    // startBtn.html('Pause');
     loopRNN();
 }
 
@@ -95,7 +96,7 @@ async function predict() {
 
   if(period>1){
     generating = false;
-    startBtn.html('Start');
+    // startBtn.html('Start');
     period = 0;
   }
 }
