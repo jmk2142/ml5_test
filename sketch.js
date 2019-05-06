@@ -7,6 +7,7 @@ let period = 0;
 let seed = "tell me about you.";
 
 // speech setup
+var foo = new p5.Speech(); // speech synthesis object
 var myRec = new p5.SpeechRec(); // new P5.SpeechRec object
 myRec.continuous = true; // do continuous recognition
 myRec.interimResults = false; // allow partial recognition (faster, less accurate)
@@ -27,7 +28,7 @@ function setup() {
   fill(0, 0, 0, 255);
   fill(0, 0, 0, 255);
   // instructions:
-  // textSize(12);
+  textSize(20);
   // textAlign(CENTER);
   text("say something", 30, 30);
   myRec.onResult = showResult;
@@ -45,7 +46,7 @@ function showResult() {
 }
 
 function windowResized() {
-  resizeCanvas(windowWidth, canvasHeight);
+  resizeCanvas(windowWidth, windowHeight);
 }
 
 function updateSeed(){
@@ -84,19 +85,22 @@ async function loopRNN() {
 async function predict() {
   let par = select('#result');
   // range is 0 to 1
-  let temperature = 0.8;
+  let temperature = 1;
   let next = await charRNN.predict(temperature);
   await charRNN.feed(next.sample);
   par.html(par.html() + next.sample);
+  // console.log(next.sample);
+  // foo.speak(next.sample); // say something
 
   if(next.sample=="."){
     period++;
-    console.log(period);
+    // console.log(period);
   }
 
   if(period>1){
     generating = false;
     // startBtn.html('Start');
     period = 0;
+    foo.speak(par.html());
   }
 }
